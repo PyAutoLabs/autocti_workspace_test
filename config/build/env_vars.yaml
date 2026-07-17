@@ -1,0 +1,10 @@
+# Per-script environment variable configuration for automated runs
+# (smoke tests, pre-release checks, CI). Same schema as the other
+# *_workspace_test repos.
+defaults:
+  PYAUTO_TEST_MODE: "2"
+  PYAUTO_SKIP_WORKSPACE_VERSION_CHECK: "1"
+  MPLBACKEND: "Agg"
+  NUMBA_CACHE_DIR: "/tmp/numba_cache"
+  MPLCONFIGDIR: "/tmp/matplotlib"
+overrides: {}

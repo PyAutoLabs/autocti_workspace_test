@@ -1,4 +1,4 @@
-The ``config`` folder contains configuration files which customize default **PyAutoCTI**.
+The ``config`` folder contains configuration files which customize default **PyAutoLens**.
 
 Files
 -----

@@ -6,6 +6,6 @@ HyperCINoiseScalar:
     width_modifier:
       type: Relative
       value: 0.5
-    limits:
+    gaussian_limits:
       lower: 0.0
       upper: inf

@@ -1,0 +1,15 @@
+name: Smoke Tests
+
+# Thin caller for PyAutoHeart's reusable smoke-test workflow. The ceremony
+# (chain checkout, branch matching, runner, Slack) lives centrally; this
+# workspace declares its dependency chain and owns its install epilogue
+# (.github/scripts/smoke_install.sh) and runner (.github/scripts/run_smoke.py).
+
+on: [push, pull_request]
+
+jobs:
+  smoke:
+    uses: PyAutoLabs/PyAutoHeart/.github/workflows/smoke-tests.yml@main
+    with:
+      chain: "PyAutoConf PyAutoFit PyAutoArray PyAutoCTI"
+    secrets: inherit
