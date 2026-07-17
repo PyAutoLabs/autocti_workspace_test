@@ -14,7 +14,7 @@ They appear as follows:
                 "type": "Absolute",
                 "value": 0.2
             },
-            "limits": {
+            "gaussian_limits": {
                 "lower": 0.0,
                 "upper": "inf"
             }
@@ -30,8 +30,8 @@ The sections of this example config set the following:
     width_modifier
         When the results of a search are passed to a subsequent search to set up the priors of its non-linear search,
         this entry describes how the Prior is passed. For a full description of prior passing, checkout the examples
-        in 'autocti_workspace/examples/complex/linking'.
-    limits
+        in 'autolens_workspace/examples/complex/linking'.
+    gaussian_limits
         When the results of a search are passed to a subsequent search, they are passed using a GaussianPrior. The
-        limits set the physical lower and upper limits of this GaussianPrior, such that parameter samples
+        gaussian_limits set the physical lower and upper limits of this GaussianPrior, such that parameter samples
         can not go beyond these limits.

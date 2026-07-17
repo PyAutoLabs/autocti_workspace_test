@@ -1,0 +1,38 @@
+# The `plots` section customizes every image that is output to hard-disk during a model-fit.
+
+# For example, if `plots: fit: subplot_fit: true``, the ``fit_imaging.png`` subplot file will be plotted every time visualization is performed.
+
+dataset:
+  subplot_dataset: true
+  data: false
+  noise_map: false
+  inverse_noise_map: false
+  signal_to_noise_map: false
+  pre_cti_data: false
+  cosmic_ray_map: false
+  noise_scaling_map_dict: false
+  absolute_signal_to_noise_map: false
+  potential_chi_squared_map: false
+  data_with_noise_map: true
+  data_with_noise_map_logy: true
+imaging:
+  psf: false
+fit:
+  all_at_end_png: false
+  all_at_end_fits: false
+  subplot_fit: true
+  subplot_residual_maps: true
+  subplot_normalized_residual_maps: true
+  subplot_chi_squared_maps: true
+  data: true
+  noise_map: false
+  signal_to_noise_map: false
+  pre_cti_data: false
+  post_cti_data: true
+  residual_map: false
+  normalized_residual_map: true
+  chi_squared_map: false
+  data_with_noise_map: true
+  data_with_noise_map_logy: true
+  noise_scaling_map_dict: false
+fit_imaging: {}
