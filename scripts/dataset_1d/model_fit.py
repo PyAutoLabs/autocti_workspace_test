@@ -94,8 +94,8 @@ __Aggregator round-trip__
 """
 from pathlib import Path
 
-from autoconf import conf
-from autoconf.test_mode import with_test_mode_segment
+from autocti import conf
+from autocti import with_test_mode_segment
 
 database_file = "dataset_1d_integration.sqlite"
 
