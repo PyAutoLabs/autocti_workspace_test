@@ -89,7 +89,7 @@ imaging_ci_list.append(imaging_ci)
  different CTI models to the dataset.
 
  Model-fitting is handled by our project **PyAutoFit**, a probablistic programming language for non-linear model
- fitting. The setting up on configuration files is performed by our project **PyAutoConf**. We'll need to import
+ fitting. The setting up on configuration files is performed by our project **PyAutoNerves**. We'll need to import
  both to perform the model-fit.
 
  In this script, we will fit charge injection imaging which has been subjected to CTI, where:

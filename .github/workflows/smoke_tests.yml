@@ -11,5 +11,5 @@ jobs:
   smoke:
     uses: PyAutoLabs/PyAutoHeart/.github/workflows/smoke-tests.yml@main
     with:
-      chain: "PyAutoConf PyAutoFit PyAutoArray PyAutoCTI"
+      chain: "PyAutoNerves PyAutoFit PyAutoArray PyAutoCTI"
     secrets: inherit
