@@ -30,7 +30,7 @@ python scripts/dataset_1d/model_fit.py  # one script, real search (no env applie
 ```
 
 CI runs the smoke list through PyAutoHeart's reusable smoke workflow (thin caller in
-`.github/workflows/smoke_tests.yml`, chain `PyAutoConf PyAutoFit PyAutoArray PyAutoCTI`; the
+`.github/workflows/smoke_tests.yml`, chain `PyAutoNerves PyAutoFit PyAutoArray PyAutoCTI`; the
 arcticpy build lives in `.github/scripts/smoke_install.sh`).
 
 ## Conventions

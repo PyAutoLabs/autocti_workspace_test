@@ -11,8 +11,8 @@ sudo apt-get update && sudo apt-get install -y libgsl-dev
 pip install numpy cython
 pip install arcticpy==2.6 --no-build-isolation --no-deps
 
-pip install ./PyAutoConf ./PyAutoFit ./PyAutoArray ./PyAutoCTI
+pip install ./PyAutoNerves ./PyAutoFit ./PyAutoArray ./PyAutoCTI
 pip install "./PyAutoArray[optional]"
 # The re-resolution above can upgrade autonerves to the stale PyPI release;
 # pin the local source last so recent autonerves APIs are importable.
-pip install --force-reinstall --no-deps ./PyAutoConf
+pip install --force-reinstall --no-deps ./PyAutoNerves
