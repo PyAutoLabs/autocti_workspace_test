@@ -18,14 +18,14 @@ scripts/                     Integration-test scripts run in CI
 legacy/                      Euclid VIS heritage (2022-2023, pre-resurrection API — not runnable;
                              see legacy/README.md)
 config/                      Current PyAutoCTI config (mirrors autocti_workspace)
-config/build/env_vars.yaml   Per-script env for smoke runs (PYAUTO_TEST_MODE=2 defaults)
+config/build/profile_smoke.yaml   Per-script env for smoke runs (PYAUTO_TEST_MODE=2 defaults)
 smoke_tests.txt              The curated smoke list (small on purpose)
 ```
 
 ## Running
 
 ```bash
-python .github/scripts/run_smoke.py     # the smoke list, with env_vars.yaml applied
+python .github/scripts/run_smoke.py     # the smoke list, with profile_smoke.yaml applied
 python scripts/dataset_1d/model_fit.py  # one script, real search (no env applied)
 ```
 
