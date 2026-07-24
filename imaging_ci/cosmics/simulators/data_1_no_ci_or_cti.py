@@ -7,12 +7,6 @@ This script simulates charge injection imaging with CTI, where:
  - Parallel CTI is added to the image using a 2 `Trap` species model.
  - The volume filling behaviour in the parallel direction using the `CCD` class.
 """
-# %matplotlib inline
-# from pyprojroot import here
-# workspace_path = str(here())
-# %cd $workspace_path
-# print(f"Working Directory has been set to `{workspace_path}`")
-
 from os import path
 import autocti as ac
 import autocti.plot as aplt

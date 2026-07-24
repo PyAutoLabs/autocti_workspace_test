@@ -9,12 +9,6 @@ linearly increases across the datasets.
 
 In this script we load the results of these model fits and estimate how the density evolves linearly with time.
 """
-# %matplotlib inline
-# from pyprojroot import here
-# workspace_path = str(here())
-# %cd $workspace_path
-# print(f"Working Directory has been set to `{workspace_path}`")
-
 import matplotlib.pyplot as plt
 import numpy as np
 from os import path
