@@ -18,12 +18,6 @@ better estimate.
 The charge injection data is a small cut-out of 30 x 30 pixels, to make CTI calibration run fast for the overview
 script that this data is used for.
 """
-# %matplotlib inline
-# from pyprojroot import here
-# workspace_path = str(here())
-# %cd $workspace_path
-# print(f"Working Directory has been set to `{workspace_path}`")
-
 import numpy as np
 from os import path
 import autofit as af
