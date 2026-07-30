@@ -195,7 +195,3 @@ This can be loaded via the method `CTI2D.from_json`.
 """
 cti.output_to_json(file_path=path.join(dataset_path, "cti.json"))
 clocker.output_to_json(file_path=path.join(dataset_path, "clocker.json"))
-
-"""
-Finished.
-"""

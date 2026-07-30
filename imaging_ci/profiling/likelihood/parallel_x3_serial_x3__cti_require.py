@@ -224,6 +224,3 @@ print(f"LH Evaluation Time = {time_normal}")
 # time_fast = (time.time() - start) / repeats
 #
 # print(f"LH Evaluation Time Fast Mode = {time_fast}")
-"""
-Finished.
-"""

@@ -221,7 +221,3 @@ Output the image, noise-map and pre cti image of the charge injection dataset to
     )
     for imaging_ci, norm in zip(imaging_ci_list, norm_list)
 ]
-
-"""
-Finished.
-"""

@@ -188,7 +188,3 @@ for total_rows in total_rows_list:
 
     with open(fit_file, "w") as f:
         json.dump(log_likelihood_list, f)
-
-"""
-Finished.
-"""

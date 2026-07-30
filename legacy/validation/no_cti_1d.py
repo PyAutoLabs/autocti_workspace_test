@@ -191,7 +191,3 @@ print(f"Likelihood Density 0.5: {analysis.log_likelihood_function(instance=insta
 instance.cti.trap_list[0].density = 5.0
 
 print(f"Likelihood Density 5.0: {analysis.log_likelihood_function(instance=instance)}")
-
-"""
-Finished.
-"""

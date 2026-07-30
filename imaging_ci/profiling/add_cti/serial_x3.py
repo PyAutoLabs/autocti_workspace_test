@@ -110,7 +110,3 @@ image_fast = clocker.add_cti(data=image.native, cti=cti)
 print(f"Clocking Time = {(time.time() - start)}")
 
 print(np.max(np.abs(image_slow - image_fast)))
-
-"""
-Finished.
-"""

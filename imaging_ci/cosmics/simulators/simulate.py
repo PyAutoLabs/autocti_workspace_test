@@ -208,7 +208,3 @@ Output the image, noise-map and pre cti image of the charge injection dataset to
     )
     for imaging_ci in imaging_ci_list
 ]
-
-"""
-Finished.
-"""

@@ -172,6 +172,3 @@ for i in range(repeats):
 time_fast = (time.time() - start) / repeats
 
 print(f"LH Evaluation Time Parallel (Fast Mode) = {time_fast}")
-"""
-Finished.
-"""

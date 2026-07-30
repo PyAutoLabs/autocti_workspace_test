@@ -241,7 +241,3 @@ for time in time_list:
     """
     cti.output_to_json(file_path=path.join(dataset_output_path, "cti.json"))
     clocker.output_to_json(file_path=path.join(dataset_output_path, "clocker.json"))
-
-"""
-Finished.
-"""

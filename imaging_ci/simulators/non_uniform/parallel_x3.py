@@ -217,8 +217,3 @@ for total_columns in total_columns_list:
 
     with open(fit_file, "w") as f:
         json.dump(log_likelihood_list, f)
-
-
-"""
-Finished.
-"""
