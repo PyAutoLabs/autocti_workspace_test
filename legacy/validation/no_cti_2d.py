@@ -181,7 +181,3 @@ print(analysis.log_likelihood_function(instance=instance))
 instance.cti.parallel_trap_list[0].density = 5.0
 
 print(analysis.log_likelihood_function(instance=instance))
-
-"""
-Finished.
-"""

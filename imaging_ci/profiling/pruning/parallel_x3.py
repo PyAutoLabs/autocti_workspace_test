@@ -136,7 +136,3 @@ for pre_cti_image in pre_cti_image_list:
     print(
         f"Times (Pruning / Negative Pruning / No Pruning) = {pruning_time} | {negative_pruning_time} | {no_pruning_time}"
     )
-
-    """
-    Finished.
-    """

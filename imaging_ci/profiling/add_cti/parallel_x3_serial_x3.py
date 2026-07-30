@@ -187,7 +187,3 @@ The time to add CTI with the fast speed up.
 #
 #
 # print(np.max(np.abs(image_slow - image_fast)))
-
-"""
-Finished.
-"""

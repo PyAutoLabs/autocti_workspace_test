@@ -156,6 +156,3 @@ for i in range(repeats):
 time_fast = (time.time() - start) / repeats
 
 print(f"LH Evaluation Time Serial = {time_fast}")
-"""
-Finished.
-"""
