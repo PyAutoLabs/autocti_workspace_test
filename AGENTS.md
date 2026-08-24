@@ -4,9 +4,16 @@ This is the integration-test suite for **PyAutoCTI**, run in CI to verify the co
 end-to-end. It is **not** a user-facing workspace — see `../autocti_workspace` for examples and
 tutorials. These are the canonical, agent-agnostic instructions for this repo.
 
-Dependencies: `autocti`, `autofit`, `autoarray`, and **arcticpy** (source-only C++ sdist — install
-with `pip install arcticpy==2.6 --no-build-isolation --no-deps` after numpy+cython, with
-`libgsl-dev` present; see `PyAutoCTI/AGENTS.md`).
+Dependencies: `autocti`, `autofit`, `autoarray`, and **arcticpy** (source-only C++ sdist; the
+full install recipe is in `PyAutoCTI/AGENTS.md` §arcticpy, and CI runs it from
+`PyAutoHeart/.github/actions/install-arcticpy`). Short form:
+
+```bash
+sudo apt-get install -y libgsl-dev
+pip install --upgrade pip setuptools wheel     # setuptools is a BUILD dep; 3.12+ venvs omit it
+pip install numpy cython scipy matplotlib
+pip install arcticpy==2.6 --no-build-isolation --no-deps
+```
 
 ## Repository Structure
 
@@ -30,8 +37,11 @@ python scripts/dataset_1d/model_fit.py  # one script, real search (no env applie
 ```
 
 CI runs the smoke list through PyAutoHeart's reusable smoke workflow (thin caller in
-`.github/workflows/smoke_tests.yml`, chain `PyAutoNerves PyAutoFit PyAutoArray PyAutoCTI`; the
-arcticpy build lives in `.github/scripts/smoke_install.sh`).
+`.github/workflows/smoke_tests.yml`, chain `PyAutoNerves PyAutoFit PyAutoArray PyAutoCTI`). The
+arcticpy build is **not** in `.github/scripts/smoke_install.sh` any more: the caller passes
+`arcticpy: true` and Heart runs its own `install-arcticpy` action before the epilogue, so the
+recipe has one owner instead of a copy per repo. `smoke_install.sh` now holds only the
+workspace-specific chain install.
 
 ## Conventions
 
