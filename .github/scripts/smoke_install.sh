@@ -4,12 +4,17 @@
 # checkout root (the dependency chain is cloned beside `workspace/`).
 set -e
 
-# arcticpy (the C++ arctic clocking code) is a hard import of autocti but not
-# a pip dependency: its sdist is source-only (needs libgsl-dev + cython) and
-# its own requirements downgrade numpy below 2.0.
-sudo apt-get update && sudo apt-get install -y libgsl-dev
-pip install numpy cython
-pip install arcticpy==2.6 --no-build-isolation --no-deps
+# arcticpy is NOT installed here. It is a hard import of autocti but not a pip
+# dependency, and its recipe (source-only C++ sdist, libgsl-dev, a
+# numpy-downgrade trap, --no-build-isolation build deps) is fiddly enough that
+# four repos had drifted apart carrying copies of it. It now belongs to the
+# organ that owns the reusable workflows:
+#
+#   PyAutoHeart/.github/actions/install-arcticpy
+#
+# and this workspace asks for it with `arcticpy: true` in
+# .github/workflows/smoke_tests.yml, which runs it before this epilogue.
+# Everything left in this file is genuinely workspace-specific.
 
 pip install ./PyAutoNerves ./PyAutoFit ./PyAutoArray ./PyAutoCTI
 pip install "./PyAutoArray[optional]"

@@ -22,4 +22,8 @@ jobs:
     uses: PyAutoLabs/PyAutoHeart/.github/workflows/smoke-tests.yml@main
     with:
       chain: "PyAutoNerves PyAutoFit PyAutoArray PyAutoCTI"
+      # `import autocti` needs arcticpy, whose install recipe is owned centrally
+      # by PyAutoHeart/.github/actions/install-arcticpy rather than copied into
+      # this workspace's epilogue. Heart runs it before smoke_install.sh.
+      arcticpy: true
     secrets: inherit
