@@ -36,9 +36,7 @@ arcticpy build lives in `.github/scripts/smoke_install.sh`).
 ## Conventions
 
 - Keep `smoke_tests.txt` a **small curated subset** — do not mass-promote scripts.
-- Integration scripts are self-contained (simulate their own data, small shapes) and single-trap
-  (identical-prior ordered-trap models tie at prior medians under the `PYAUTO_TEST_MODE=2`
-  bypass and raise their own assertion — a filed autofit issue; avoid the pattern here).
+- Integration scripts are self-contained (simulate their own data, small shapes) and single-trap.
 - The test-mode knob is `PYAUTO_TEST_MODE` (`2` bypasses sampling); `PYAUTOFIT_TEST_MODE`
   does not exist.
 - Never edit `legacy/` — it is preserved Euclid VIS history.
