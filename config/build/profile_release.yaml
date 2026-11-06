@@ -1,0 +1,28 @@
+# Per-script environment variable configuration for a full-fidelity run of
+# this test workspace: a reduced (not bypassed) sampler with real fit output
+# and visualization. Copied from autocti_workspace/config/build/profile_release.yaml
+# for parity with autolens_workspace_test. PyAutoHands release.yml runs the
+# release smoke for the main workspaces only, so nothing invokes this file
+# automatically today; pass it with `run_python.py --env-config`. Distinct
+# from profile_smoke.yaml, the per-PR CI profile.
+#
+# The `release` profile trades speed for fidelity: a reduced (not bypassed)
+# sampler with real fit output and visualization. Every variable is given an
+# explicit value because the runner only ever *sets* keys, never clears
+# inherited ones (see autolens_workspace/config/build/profile_release.yaml).
+#
+# autocti has no JAX likelihood path and no PYAUTO_SMALL_DATASETS handling, so
+# those autolens keys are deliberately absent.
+
+defaults:
+  PYAUTO_TEST_MODE: "1"                     # reduced iterations (real sampler), not bypassed
+  PYAUTO_SKIP_FIT_OUTPUT: "0"               # real fit output (release fidelity, not smoke)
+  PYAUTO_SKIP_VISUALIZATION: "0"            # real visualization (release fidelity, not smoke)
+  PYAUTO_SKIP_CHECKS: "0"                   # real checks (release fidelity)
+  PYAUTO_FAST_PLOTS: "1"                    # skip figure rasterisation + mask-edge overlays
+  PYAUTO_SKIP_WORKSPACE_VERSION_CHECK: "1"  # TestPyPI dev version won't match the workspace pin
+  MPLBACKEND: "Agg"
+  NUMBA_CACHE_DIR: "/tmp/numba_cache"       # writable cache dir for numba
+  MPLCONFIGDIR: "/tmp/matplotlib"           # writable config dir for matplotlib
+
+overrides: []

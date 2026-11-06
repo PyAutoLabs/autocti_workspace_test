@@ -1,5 +1,19 @@
+# Smoke tests: run by CI on every PR (PyAutoHeart's reusable smoke workflow) under
+# config/build/profile_smoke.yaml. Every script simulates its own data, so the order
+# does not matter; it is grouped by dataset type. Coverage: AGENTS.md, "Scripts".
+
+# dataset_1d
+dataset_1d/recover_input.py
+dataset_1d/remove_cti.py
 dataset_1d/model_fit.py
 dataset_1d/likelihood/pins.py
+
+# imaging_ci
+imaging_ci/recover_input.py
+imaging_ci/remove_cti.py
+imaging_ci/cosmic_ray_flagging.py
 imaging_ci/model_fit.py
 imaging_ci/likelihood/pins.py
+
+# plot
 plot/subplots.py

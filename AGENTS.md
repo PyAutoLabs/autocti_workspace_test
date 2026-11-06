@@ -18,23 +18,35 @@ pip install arcticpy==2.6 --no-build-isolation --no-deps
 ## Repository Structure
 
 ```
-scripts/                     Integration-test scripts run in CI
-  dataset_1d/model_fit.py    1D calibration: simulate -> factor-graph fit -> aggregator round-trip
-  imaging_ci/model_fit.py    2D charge injection: simulate -> factor-graph fit -> result inspection
+scripts/
+  dataset_1d/recover_input.py     Truth fits noise-free data (chi² = 0), offsets are worse, a density scan peaks at the truth
+  dataset_1d/remove_cti.py        remove_cti(add_cti(x)) = x; more iterations shrink the residual
+  dataset_1d/model_fit.py         Simulate -> factor-graph fit -> aggregator round trip (database CTI = search result)
   dataset_1d/likelihood/pins.py   Pinned log-likelihood literals (1 and 2 trap species)
+  imaging_ci/recover_input.py     As 1D, for parallel, serial and parallel+serial CTI
+  imaging_ci/remove_cti.py        As 1D, per direction (see the parallel+serial note in the script)
+  imaging_ci/cosmic_ray_flagging.py  Flag seeded cosmic rays; the buffered mask covers every contaminated pixel
+  imaging_ci/model_fit.py         Simulate -> factor-graph fit -> aggregator round trip (database CTI = search result)
   imaging_ci/likelihood/pins.py   Pinned log-likelihood literals (parallel, serial, parallel+serial)
-  plot/subplots.py           Drives the autocti.plot function surface to files
-legacy/                      Euclid VIS heritage (2022-2023, pre-resurrection API — not runnable;
-                             see legacy/README.md)
-config/                      Current PyAutoCTI config (mirrors autocti_workspace)
-config/build/profile_smoke.yaml   Per-script env for smoke runs (PYAUTO_TEST_MODE=2 defaults)
-smoke_tests.txt              The curated smoke list (small on purpose)
+  plot/subplots.py                Drives the autocti.plot function surface to files
+config/                           Current PyAutoCTI config (mirrors autocti_workspace)
+config/build/profile_smoke.yaml   Per-script env for CI smoke (PYAUTO_TEST_MODE=2: sampling bypassed)
+config/build/profile_release.yaml Full-fidelity env (reduced real sampler, real output + visualization)
+config/build/no_run.yaml          Scripts automated runs skip (SLOW / NEEDS_FIX conventions); empty today
+smoke_tests.txt                   Every script above, run on every PR
+run_all_scripts.sh                Runs every script in scripts/ under PYAUTO_TEST_MODE=1; failures go to failed/
 ```
+
+The pre-resurrection trees `legacy/` (Euclid VIS heritage, 139 files) and the top-level
+`imaging_ci/` (43 files) were retired on 2026-11-06 (cti-upkeep 3b, ruling R3). They are
+recoverable from the PyAutoGut ref `archive/condemned/autocti-workspace-test-legacy`, or from
+this repo's history at `72970e78`, and are listed in `PyAutoMind/condemned.md`.
 
 ## Running
 
 ```bash
 python .github/scripts/run_smoke.py     # the smoke list, with profile_smoke.yaml applied
+bash run_all_scripts.sh                 # every script, PYAUTO_TEST_MODE=1
 python scripts/dataset_1d/model_fit.py  # one script, real search (no env applied)
 ```
 
@@ -45,13 +57,28 @@ arcticpy build is **not** in `.github/scripts/smoke_install.sh` any more: the ca
 recipe has one owner instead of a copy per repo. `smoke_install.sh` now holds only the
 workspace-specific chain install.
 
+## How the checks are designed
+
+Every script **asserts**; a script that only prints is not a test. Apart from the likelihood
+pins, the checks are **self-consistency** checks: data are simulated with arctic and then
+fitted, corrected or flagged with the same arctic, so they hold whatever arcticpy version is
+installed. When arcticpy is bumped, only the pins move.
+
+- Simulated data are noise-free (or seeded), so results are deterministic.
+- Each check guards against being vacuous (for example, it asserts the CTI trail it removes is
+  non-trivial, or that bright cosmic rays were actually injected).
+- Each check was verified on 2026-11-06 to fail when its premise is broken: a wrong simulation
+  model, a wrong correction model, a raised flagging threshold, missing mask buffers.
+- Bounds that come from measurement say so in the script, with the date and arcticpy version.
+
 ## Conventions
 
-- Keep `smoke_tests.txt` a **small curated subset** — do not mass-promote scripts.
-- Integration scripts are self-contained (simulate their own data, small shapes) and single-trap.
+- Keep the scripts self-contained (they simulate their own data, at small shapes) and fast:
+  everything in `scripts/` is in `smoke_tests.txt`.
+- Model fits use a single trap species, so the model has no ordering assertion (which ties at
+  prior medians under the `PYAUTO_TEST_MODE=2` bypass).
 - The test-mode knob is `PYAUTO_TEST_MODE` (`2` bypasses sampling); `PYAUTOFIT_TEST_MODE`
   does not exist.
-- Never edit `legacy/` — it is preserved Euclid VIS history.
 
 ## Likelihood pins
 
