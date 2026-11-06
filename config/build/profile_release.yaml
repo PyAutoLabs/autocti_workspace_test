@@ -25,4 +25,8 @@ defaults:
   NUMBA_CACHE_DIR: "/tmp/numba_cache"       # writable cache dir for numba
   MPLCONFIGDIR: "/tmp/matplotlib"           # writable config dir for matplotlib
 
-overrides: []
+overrides:
+  # plot/subplots.py asserts the plot functions write their PNGs; FAST_PLOTS=1 drops
+  # every figure before it is saved, so this script needs real plotting.
+  - pattern: "plot/subplots"
+    set: {PYAUTO_FAST_PLOTS: "0"}
