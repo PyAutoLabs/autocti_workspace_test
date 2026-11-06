@@ -86,4 +86,54 @@ print("fit chi squared:", fit.chi_squared)
 
 assert fit.chi_squared is not None
 
+density_result = result.max_log_likelihood_instance.cti.parallel_trap_list[0].density
+
+"""
+__Aggregator round-trip__
+
+Load the fit back from an .sqlite database and check the dataset, the fit and the CTI model all
+come back, with the CTI identical to the one the search returned.
+"""
+import os
+from pathlib import Path
+
+from autocti import conf
+from autocti import with_test_mode_segment
+
+database_file = "imaging_ci_integration.sqlite"
+
+if path.exists(database_file):
+    os.remove(database_file)
+
+agg = af.Aggregator.from_database(
+    filename=database_file, completed_only=False, top_level_only=True
+)
+agg.add_directory(
+    directory=str(with_test_mode_segment(Path(conf.instance.output_path)) / "imaging_ci")
+)
+
+total_datasets = sum(
+    len(dataset_sublist)
+    for dataset_sublist in ac.agg.ImagingCIAgg(aggregator=agg).dataset_list_gen_from()
+)
+assert total_datasets >= 1, f"aggregator returned {total_datasets} datasets, expected >= 1"
+
+total_fits = sum(
+    len(fit_sublist)
+    for fit_sublist in ac.agg.FitImagingCIAgg(aggregator=agg).max_log_likelihood_gen_from()
+)
+assert total_fits >= 1, f"aggregator returned {total_fits} fits, expected >= 1"
+
+cti_list_list = list(ac.agg.CTIAgg(aggregator=agg).max_log_likelihood_gen_from())
+assert len(cti_list_list) >= 1, "aggregator returned no CTI models"
+
+density_database = cti_list_list[0][0].parallel_trap_list[0].density
+assert density_database == density_result, (
+    f"the database CTI (density {density_database}) differs from the search result "
+    f"(density {density_result})"
+)
+
+if path.exists(database_file):
+    os.remove(database_file)
+
 print("imaging_ci integration: OK")

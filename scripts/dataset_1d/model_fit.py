@@ -127,6 +127,21 @@ for fit_sublist in fit_agg.max_log_likelihood_gen_from():
 
 assert total_fits >= len(norm_list)
 
+density_result = result_list[0].max_log_likelihood_instance.cti.trap_list[0].density
+
+cti_list_list = list(ac.agg.CTIAgg(aggregator=agg).max_log_likelihood_gen_from())
+assert len(cti_list_list) >= 1, "aggregator returned no CTI models"
+assert len(cti_list_list[0]) == len(norm_list), (
+    f"expected one CTI per dataset ({len(norm_list)}), got {len(cti_list_list[0])}"
+)
+
+for cti_database in cti_list_list[0]:
+    density_database = cti_database.trap_list[0].density
+    assert density_database == density_result, (
+        f"the database CTI (density {density_database}) differs from the search result "
+        f"(density {density_result})"
+    )
+
 if path.exists(database_file):
     os.remove(database_file)
 
