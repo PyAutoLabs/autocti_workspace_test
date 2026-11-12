@@ -109,18 +109,24 @@ agg = af.Aggregator.from_database(
     filename=database_file, completed_only=False, top_level_only=True
 )
 agg.add_directory(
-    directory=str(with_test_mode_segment(Path(conf.instance.output_path)) / "imaging_ci")
+    directory=str(
+        with_test_mode_segment(Path(conf.instance.output_path)) / "imaging_ci"
+    )
 )
 
 total_datasets = sum(
     len(dataset_sublist)
     for dataset_sublist in ac.agg.ImagingCIAgg(aggregator=agg).dataset_list_gen_from()
 )
-assert total_datasets >= 1, f"aggregator returned {total_datasets} datasets, expected >= 1"
+assert (
+    total_datasets >= 1
+), f"aggregator returned {total_datasets} datasets, expected >= 1"
 
 total_fits = sum(
     len(fit_sublist)
-    for fit_sublist in ac.agg.FitImagingCIAgg(aggregator=agg).max_log_likelihood_gen_from()
+    for fit_sublist in ac.agg.FitImagingCIAgg(
+        aggregator=agg
+    ).max_log_likelihood_gen_from()
 )
 assert total_fits >= 1, f"aggregator returned {total_fits} fits, expected >= 1"
 

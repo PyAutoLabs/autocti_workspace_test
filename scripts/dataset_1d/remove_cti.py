@@ -31,7 +31,9 @@ layout = ac.Layout1D(
 
 cti = ac.CTI1D(
     trap_list=[ac.TrapInstantCapture(density=10.0, release_timescale=5.0)],
-    ccd=ac.CCDPhase(well_fill_power=0.5, well_notch_depth=0.0, full_well_depth=200000.0),
+    ccd=ac.CCDPhase(
+        well_fill_power=0.5, well_notch_depth=0.0, full_well_depth=200000.0
+    ),
 )
 
 clocker = ac.Clocker1D(express=5, roe=ac.ROEChargeInjection())
@@ -45,7 +47,9 @@ post_cti_data = clocker.add_cti(data=pre_cti_data, cti=cti)
 
 trail_size = np.max(np.abs(np.asarray(post_cti_data) - np.asarray(pre_cti_data)))
 print(f"largest CTI change to the data: {trail_size:.3f} e-")
-assert trail_size > 0.01 * norm, "The CTI model barely changes the data: the test is vacuous"
+assert (
+    trail_size > 0.01 * norm
+), "The CTI model barely changes the data: the test is vacuous"
 
 """
 __Correct__
@@ -65,8 +69,8 @@ assert residual_list[1] < 1e-3 * trail_size, (
     f"5-iteration correction leaves a residual of {residual_list[1]} e-, "
     f"more than 0.1% of the {trail_size:.3f} e- CTI trail it should remove"
 )
-assert residual_list[1] < residual_list[0], (
-    f"more iterations did not reduce the residual: {residual_list}"
-)
+assert (
+    residual_list[1] < residual_list[0]
+), f"more iterations did not reduce the residual: {residual_list}"
 
 print("dataset_1d remove_cti: OK")

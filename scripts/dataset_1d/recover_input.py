@@ -111,8 +111,8 @@ log_likelihood_grid = [log_likelihood_from(density=density) for density in densi
 density_recovered = density_grid[int(np.argmax(log_likelihood_grid))]
 
 print(f"recovered density: {density_recovered} (truth {density_true})")
-assert np.isclose(density_recovered, density_true), (
-    f"The likelihood scan peaks at density {density_recovered}, not the true {density_true}"
-)
+assert np.isclose(
+    density_recovered, density_true
+), f"The likelihood scan peaks at density {density_recovered}, not the true {density_true}"
 
 print("dataset_1d recover_input: OK")

@@ -72,9 +72,9 @@ for direction, cti in cti_dict.items():
 
     trail_size = np.max(np.abs(np.asarray(post_cti_data) - np.asarray(pre_cti_data)))
     print(f"{direction}: largest CTI change to the image {trail_size:.3f} e-")
-    assert trail_size > 1.0, (
-        f"{direction}: the CTI model barely changes the image, so the test is vacuous"
-    )
+    assert (
+        trail_size > 1.0
+    ), f"{direction}: the CTI model barely changes the image, so the test is vacuous"
 
     """
     __Correct__
@@ -91,9 +91,9 @@ for direction, cti in cti_dict.items():
             f"{residual_list[-1].max():.4e} e-, mean {residual_list[-1].mean():.4e} e-"
         )
 
-    assert residual_list[1].max() < residual_list[0].max(), (
-        f"{direction}: more iterations did not reduce the residual"
-    )
+    assert (
+        residual_list[1].max() < residual_list[0].max()
+    ), f"{direction}: more iterations did not reduce the residual"
 
     if direction != "parallel_serial":
         assert residual_list[1].max() < 1e-3 * trail_size, (

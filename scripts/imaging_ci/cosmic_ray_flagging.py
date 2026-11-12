@@ -76,13 +76,15 @@ cosmic_ray_map = ac.SimulatorCosmicRayMap.defaults(
     shape_native=shape_native, flux_scaling=1.0, pixel_scale=0.1, seed=1
 ).cosmic_ray_map_from(limit=ccd.full_well_depth)
 
-assert np.sum(np.asarray(cosmic_ray_map) > 0.0) > 0, (
-    "The seeded cosmic-ray simulation injected no cosmic rays: the test is vacuous"
-)
+assert (
+    np.sum(np.asarray(cosmic_ray_map) > 0.0) > 0
+), "The seeded cosmic-ray simulation injected no cosmic rays: the test is vacuous"
 
 dataset = ac.SimulatorImagingCI(
     read_noise=read_noise, pixel_scales=0.1, norm=1000.0, noise_seed=1
-).via_layout_from(clocker=clocker, layout=layout, cti=cti, cosmic_ray_map=cosmic_ray_map)
+).via_layout_from(
+    clocker=clocker, layout=layout, cti=cti, cosmic_ray_map=cosmic_ray_map
+)
 
 """
 __Flag__
@@ -113,12 +115,12 @@ print(f"bright cosmic-ray pixels flagged: {n_bright_flagged} / {n_bright}")
 print(f"clean pixels flagged: {n_false} / {n_clean}")
 
 assert n_bright > 0, "No bright cosmic-ray pixels were injected: the test is vacuous"
-assert n_bright_flagged == n_bright, (
-    f"{n_bright - n_bright_flagged} bright cosmic-ray pixels were not flagged"
-)
-assert n_false <= 0.01 * n_clean, (
-    f"{n_false} clean pixels flagged, more than 1% of {n_clean}"
-)
+assert (
+    n_bright_flagged == n_bright
+), f"{n_bright - n_bright_flagged} bright cosmic-ray pixels were not flagged"
+assert (
+    n_false <= 0.01 * n_clean
+), f"{n_false} clean pixels flagged, more than 1% of {n_clean}"
 
 """
 __Mask__
@@ -167,9 +169,9 @@ n_contaminated_unmasked = int(np.sum(contaminated & ~mask))
 print(f"pixels contaminated by cosmic rays + trails: {n_contaminated}")
 print(f"contaminated pixels left unmasked: {n_contaminated_unmasked}")
 
-assert n_contaminated > n_bright, (
-    "The cosmic rays leave no CTI trail beyond their own pixels: the trail check is vacuous"
-)
+assert (
+    n_contaminated > n_bright
+), "The cosmic rays leave no CTI trail beyond their own pixels: the trail check is vacuous"
 assert n_contaminated_unmasked == 0, (
     f"{n_contaminated_unmasked} pixels contaminated by cosmic-ray charge or its CTI trail "
     f"are not masked"

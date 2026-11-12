@@ -106,7 +106,9 @@ agg = af.Aggregator.from_database(
     filename=database_file, completed_only=False, top_level_only=True
 )
 agg.add_directory(
-    directory=str(with_test_mode_segment(Path(conf.instance.output_path)) / "dataset_1d")
+    directory=str(
+        with_test_mode_segment(Path(conf.instance.output_path)) / "dataset_1d"
+    )
 )
 
 dataset_agg = ac.agg.Dataset1DAgg(aggregator=agg)
@@ -115,9 +117,9 @@ total_datasets = 0
 for dataset_sublist in dataset_agg.dataset_list_gen_from():
     total_datasets += len(dataset_sublist)
 
-assert total_datasets >= len(norm_list), (
-    f"aggregator returned {total_datasets} datasets, expected >= {len(norm_list)}"
-)
+assert total_datasets >= len(
+    norm_list
+), f"aggregator returned {total_datasets} datasets, expected >= {len(norm_list)}"
 
 fit_agg = ac.agg.FitDataset1DAgg(aggregator=agg)
 
@@ -131,9 +133,9 @@ density_result = result_list[0].max_log_likelihood_instance.cti.trap_list[0].den
 
 cti_list_list = list(ac.agg.CTIAgg(aggregator=agg).max_log_likelihood_gen_from())
 assert len(cti_list_list) >= 1, "aggregator returned no CTI models"
-assert len(cti_list_list[0]) == len(norm_list), (
-    f"expected one CTI per dataset ({len(norm_list)}), got {len(cti_list_list[0])}"
-)
+assert len(cti_list_list[0]) == len(
+    norm_list
+), f"expected one CTI per dataset ({len(norm_list)}), got {len(cti_list_list[0])}"
 
 for cti_database in cti_list_list[0]:
     density_database = cti_database.trap_list[0].density

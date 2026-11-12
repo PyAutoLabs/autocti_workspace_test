@@ -34,7 +34,9 @@ layout_1d = ac.Layout1D(
 clocker_1d = ac.Clocker1D(express=5, roe=ac.ROEChargeInjection())
 cti_1d = ac.CTI1D(
     trap_list=[ac.TrapInstantCapture(density=10.0, release_timescale=5.0)],
-    ccd=ac.CCDPhase(well_fill_power=0.5, well_notch_depth=0.0, full_well_depth=200000.0),
+    ccd=ac.CCDPhase(
+        well_fill_power=0.5, well_notch_depth=0.0, full_well_depth=200000.0
+    ),
 )
 
 simulator_1d = ac.SimulatorDataset1D(read_noise=0.01, pixel_scales=0.1, norm=100.0)
@@ -46,14 +48,22 @@ aplt.figure_dataset_1d_data(
     dataset=dataset_1d, output_path=output_path_1d, output_format="png"
 )
 aplt.figure_dataset_1d_data(
-    dataset=dataset_1d, region="eper", logy=True, output_path=output_path_1d, output_format="png"
+    dataset=dataset_1d,
+    region="eper",
+    logy=True,
+    output_path=output_path_1d,
+    output_format="png",
 )
-aplt.subplot_dataset_1d(dataset=dataset_1d, output_path=output_path_1d, output_format="png")
+aplt.subplot_dataset_1d(
+    dataset=dataset_1d, output_path=output_path_1d, output_format="png"
+)
 aplt.subplot_dataset_1d(
     dataset=dataset_1d, region="fpr", output_path=output_path_1d, output_format="png"
 )
 aplt.subplot_dataset_1d_list(
-    dataset_list=[dataset_1d, dataset_1d], output_path=output_path_1d, output_format="png"
+    dataset_list=[dataset_1d, dataset_1d],
+    output_path=output_path_1d,
+    output_format="png",
 )
 
 fit_1d = ac.FitDataset1D(
@@ -107,9 +117,14 @@ aplt.plot_array(
     output_filename="data_2d",
     output_format="png",
 )
-aplt.subplot_imaging_ci(dataset=dataset_2d, output_path=output_path_2d, output_format="png")
+aplt.subplot_imaging_ci(
+    dataset=dataset_2d, output_path=output_path_2d, output_format="png"
+)
 aplt.subplot_imaging_ci_region(
-    dataset=dataset_2d, region="parallel_eper", output_path=output_path_2d, output_format="png"
+    dataset=dataset_2d,
+    region="parallel_eper",
+    output_path=output_path_2d,
+    output_format="png",
 )
 aplt.figure_imaging_ci_data_region(
     dataset=dataset_2d,
