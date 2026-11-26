@@ -117,6 +117,7 @@ __Pins__
 Each row is (direction, point, model kwargs, pinned log likelihood).
 """
 # pinned 2026-11-04: autocti main@2a91ff5d, arcticpy 2.6 (autocti_workspace_test#24).
+# verified 2026-11-26: unchanged under arcticpy 2.7 (jkeger/arctic@6f51535, PyAutoHeart#372).
 offset = dict(scale_density=1.2, scale_timescale=0.8)
 truth = dict(scale_density=1.0, scale_timescale=1.0)
 
